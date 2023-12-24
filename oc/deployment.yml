@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-openshift-app
+  labels:
+    app: my-openshift-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-openshift-app
+  template:
+    metadata:
+      labels:
+        app: my-openshift-app
+    spec:
+      containers:
+        - name: springboot-container
+          image: image-registry.openshift-image-registry.svc:5000/maxexplode/my-openshift-app:1.0.0
+          ports:
+            - containerPort: 9090
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+      restartPolicy: Always
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  paused: false

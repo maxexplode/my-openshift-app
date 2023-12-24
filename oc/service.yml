@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-openshift-app
+  namespace: maxexplode
+  labels:
+    app: my-openshift-app
+spec:
+  selector:
+    app: my-openshift-app
+  ports:
+    - protocol: TCP
+      port: 9090
+      targetPort: 9090

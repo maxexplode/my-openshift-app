@@ -1,0 +1,17 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: my-openshift-app
+  namespace: maxexplode
+  labels:
+    app: my-openshift-app
+spec:
+  to:
+    kind: Service
+    name: my-openshift-app
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Allow
+    destinationCACertificate: ''
+  port:
+    targetPort: 9090
